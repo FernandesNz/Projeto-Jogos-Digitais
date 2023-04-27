@@ -18,16 +18,16 @@ y = 0
 
 # Tamanho do obstaculo
 height = 30
-width = 150
+width = 200
 
 #velocidade do obstaculo
-velY = 5
+velY = 6
 
 # posição do Heroi
-posicaoHeroi = [550, 350]
+posicaoHeroi = [350, 550]
 
 #velocidade do heroi
-velocidadeHeroi = [3, 3]
+velocidadeHeroi = [4, 4]
 
 
 
@@ -40,14 +40,14 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-    #y += velY
+    y += velY
 
     pressed = pygame.key.get_pressed()
 
     if pressed[pygame.K_LEFT]: posicaoHeroi[0] -= velocidadeHeroi[0]
     if pressed[pygame.K_RIGHT]: posicaoHeroi[0] += velocidadeHeroi[0]
     
-    pygame.draw.circle(win, (255,255,255), posicaoHeroi, 20)
+    
     
 
     if(y >= win_height):
@@ -56,10 +56,11 @@ while running:
         if(posicao == 0):
             x = 250
         if(posicao == 1):
-            x = 400
+            x = 350
     win.fill((0,0,0))
     pygame.draw.rect(win, (255, 255, 255), (x, y, width, height))
     pygame.draw.rect(win, (150, 255, 0), (0, 0, 250, 600))
     pygame.draw.rect(win, (150, 255, 0), (550, 0, 250, 600))
+    pygame.draw.circle(win, (255,255,255), posicaoHeroi, 20)
     pygame.display.update()
  
