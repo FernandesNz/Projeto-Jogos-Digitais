@@ -6,10 +6,10 @@ pygame.init()
 SCREEN = pygame.display.set_mode((1180, 720))
 pygame.display.set_caption("Menu")
 
-BG = pygame.image.load("assets/Background3.png")
+BG = pygame.image.load("assets/images/Background3.png")
 
 def get_font(size): # Returns Press-Start-2P in the desired size
-    return pygame.font.Font("assets/font.ttf", size)
+    return pygame.font.Font("assets/fonts/font.ttf", size)
 
 def play():
     while True:
@@ -72,11 +72,11 @@ def main_menu():
         MENU_TEXT = get_font(100).render("SOS Flood", True, "#FFCD50")
         MENU_RECT = MENU_TEXT.get_rect(center=(590, 100))
 
-        PLAY_BUTTON = Button(image=pygame.image.load("assets/jogar.png"), pos=(590, 250), 
+        PLAY_BUTTON = Button(image=pygame.image.load("assets/images/jogar.png"), pos=(590, 250), 
                             text_input="Jogar", font=get_font(60), base_color="#d7fcd4", hovering_color="green")
-        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/instrucoes.png"), pos=(590, 400), 
+        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/images/instrucoes.png"), pos=(590, 400), 
                             text_input="Instruções", font=get_font(60), base_color="#d7fcd4", hovering_color="yellow")
-        QUIT_BUTTON = Button(image=pygame.image.load("assets/sair.png"), pos=(590, 550), 
+        QUIT_BUTTON = Button(image=pygame.image.load("assets/images/sair.png"), pos=(590, 550), 
                             text_input="Sair", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
