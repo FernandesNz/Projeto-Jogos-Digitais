@@ -21,11 +21,15 @@ fonte = pygame.font.Font("assets/fonts/font.ttf", 30)
 
 
 # posição do obstaculo
-posicaoObstaculo = [385, 0]
+posicaoObstaculo = [385, -150]
 
 # Tamanho do obstaculo
-height = 30
-width = 200
+hObstaculo = 30
+wObstaculo = 200
+
+#tamanho do Heroi
+hHeroi = 100
+wHeroi = 100
 
 #velocidade do obstaculo
 velY = 7
@@ -36,11 +40,13 @@ posicaoHeroi = [580, 600]
 #velocidade do heroi
 velocidadeHeroi = [5, 5]
 
+#posição da vitima
+posicaoVitima = [615, -1200]
 
 # cor dos corações
 c1 = cVida
 c2 = cVida
-c3 = cVazio
+c3 = cVida
 
 #vida 
 life = 3
@@ -53,6 +59,13 @@ temporizador = 0
 
 vitimasSalvas = 0
 score = 0
+bonus = 0
+
+estadoVitima = "fora"
+ladoObstaculo = "esquerda"
+
+
+
 
 
 running = True
@@ -68,6 +81,9 @@ while running:
 
 
     posicaoObstaculo[1] += velY
+    posicaoVitima[1] += velY
+    
+
 
 
     #aumento de velocidade de acordo com o tempo
@@ -77,6 +93,14 @@ while running:
         velY = 12
     if(temporizador >= 20):
         velY = 14
+
+    #aumento de velocidade de acordo com o tempo
+    if(temporizador >= 10):
+        velocidadeHeroi = [6,6]
+    if(temporizador >= 15):
+        velocidadeHeroi = [8,8]
+    if(temporizador >= 20):
+        velocidadeHeroi = [10,10]
 
 
     #movimento do heroi
@@ -90,33 +114,84 @@ while running:
         if(posicaoHeroi[0] < 720):
             posicaoHeroi[0] += velocidadeHeroi[0]
     
+
+
+    #determinando se a vitima esta ou não na tela
+    if(posicaoVitima[1] < 0):
+        estadoVitima = "fora"
+    if(posicaoVitima[1] > 0):
+        estadoVitima = "dentro"
     
-    
+
+
     # posição em que o obstaculo restornara
     if(posicaoObstaculo[1] >= win_height):
         posicao = randint(0, 1)
-        posicaoObstaculo[1] = 0
+        posicaoObstaculo[1] = -50
         if(posicao == 0):
             posicaoObstaculo[0] = 385
+            ladoObstaculo = "esquerda"
         if(posicao == 1):
             posicaoObstaculo[0] = 615
+            ladoObstaculo = "direita"
+
+    #retornar a vitima ao inicio
+    if(posicaoVitima[1] > win_height):
+        bonus -= 30
+        if(ladoObstaculo == "esquerda"):
+            posicaoVitima[0] = 655
+        if(ladoObstaculo == "direita"):
+            posicaoVitima[0] = 400
+        if(posicaoObstaculo[1] >= 400):
+            posicaoVitima[1] = posicaoObstaculo[1] - 1500
+        if(posicaoObstaculo[1] < 400):
+            posicaoVitima[1] = posicaoObstaculo[1] - 1000
+
+    if((posicaoHeroi[0]+100 >= posicaoObstaculo[0] and posicaoHeroi[0] <= posicaoObstaculo[0] + 200) and (posicaoHeroi[1] <= posicaoObstaculo[1] + 30 and posicaoHeroi[1] + 100 >= posicaoObstaculo[1])):
+        posicao = randint(0, 1)
+        posicaoObstaculo[1] = -50
+        if(posicao == 0):
+            posicaoObstaculo[0] = 385
+            ladoObstaculo = "esquerda"
+        if(posicao == 1):
+            posicaoObstaculo[0] = 615
+            ladoObstaculo = "direita"
+        life -= 1
+    if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_c]):
+        if(ladoObstaculo == "esquerda"):
+            posicaoVitima[0] = 655
+        if(ladoObstaculo == "direita"):
+            posicaoVitima[0] = 400
+        if(posicaoObstaculo[1] >= 400):
+            posicaoVitima[1] = posicaoObstaculo[1] - 1500
+        if(posicaoObstaculo[1] < 400):
+            posicaoVitima[1] = posicaoObstaculo[1] - 1000
+        vitimasSalvas += 1
+        bonus += 10
 
 
-    
-    score = temporizador + vitimasSalvas
-    
+    if(life == 2):
+        c3 = cVazio
+    if(life == 1):
+        c2 = cVazio
+
+
+    score = temporizador + bonus
+        
 
 
 
     timer1 = fonte.render("Timer: " + str(temporizador), True, (255, 0, 255))
     scoreTxt = fonte.render("Score " + str(score), True, (255,255,255))
-    vitimasTxt = fonte.render("Salvos" + str(vitimasSalvas), True, (255,255,255))
+    vitimasTxt = fonte.render("Salvos " + str(vitimasSalvas), True, (255,255,255))
+
+
 
     win.fill((0,0,0))
     win.blit(bg, (0, 0))
     win.blit(vt1, (posicaoHeroi))
     win.blit(tronco, (posicaoObstaculo))
-    #win.blit(timer1, (10, 80))
+    win.blit(vt1, (posicaoVitima))
     win.blit(scoreTxt, (10, 620))
     win.blit(vitimasTxt, (10, 670))
     win.blit(c1,(900, 20))
