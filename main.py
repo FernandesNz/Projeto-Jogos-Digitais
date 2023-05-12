@@ -1,6 +1,7 @@
 import pygame, sys
 from button import Button
 
+
 pygame.init()
 
 SCREEN = pygame.display.set_mode((1180, 720))
@@ -91,7 +92,7 @@ def main_menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    play()
+                    import game
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
