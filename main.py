@@ -1,74 +1,103 @@
-#Matheus Fernandes - 42139694
-#teste 1
-
-import random
-import pygame
-from random import randint
+import pygame, sys
+from button import Button
 
 pygame.init()
-win_height = 720
-win_width = 1180
-win_mode = (win_width, win_height)
-win = pygame.display.set_mode(win_mode)
-pygame.display.set_caption("SOS Flood")
-bg = pygame.image.load("assets/images/background.png")
-vt1 = pygame.image.load("assets/images/heroi.png")
-tronco = pygame.image.load("assets/images/tronco 2.png")
 
-# posição do obstaculo
-x = 385
-y = 0
+SCREEN = pygame.display.set_mode((1180, 720))
+pygame.display.set_caption("Menu")
 
-# Tamanho do obstaculo
-height = 30
-width = 200
+BG = pygame.image.load("assets/images/Background3.png")
 
-#velocidade do obstaculo
-velY = 7
+def get_font(size): # Returns Press-Start-2P in the desired size
+    return pygame.font.Font("assets/fonts/font.ttf", size)
 
-# posição do Heroi
-posicaoHeroi = [580, 600]
+def play():
+    while True:
+        PLAY_MOUSE_POS = pygame.mouse.get_pos()
 
-#velocidade do heroi
-velocidadeHeroi = [5, 5]
+        SCREEN.fill("black")
 
+        PLAY_TEXT = get_font(45).render("This is the PLAY screen.", True, "White")
+        PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
+        SCREEN.blit(PLAY_TEXT, PLAY_RECT)
 
+        PLAY_BACK = Button(image=None, pos=(640, 460), 
+                            text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
 
+        PLAY_BACK.changeColor(PLAY_MOUSE_POS)
+        PLAY_BACK.update(SCREEN)
 
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BACK.checkForInput(PLAY_MOUSE_POS):
+                    main_menu()
 
-running = True
-while running:
-    pygame.time.delay(20)
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+        pygame.display.update()
     
-    y += velY
+def options():
+    while True:
+        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
 
-    pressed = pygame.key.get_pressed()
+        SCREEN.fill("white")
 
-    if pressed[pygame.K_LEFT]: 
-        if(posicaoHeroi[0] > 355):
-            posicaoHeroi[0] -= velocidadeHeroi[0]
-    if pressed[pygame.K_RIGHT]: 
-        if(posicaoHeroi[0] < 720):
-            posicaoHeroi[0] += velocidadeHeroi[0]
-    
-    
-    
+        OPTIONS_TEXT = get_font(45).render("This is the OPTIONS screen.", True, "Black")
+        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(640, 260))
+        SCREEN.blit(OPTIONS_TEXT, OPTIONS_RECT)
 
-    if(y >= win_height):
-        posicao = randint(0, 1)
-        y = 0
-        if(posicao == 0):
-            x = 385
-        if(posicao == 1):
-            x = 615
-    win.fill((0,0,0))
-    win.blit(bg, (0, 0))
-    win.blit(vt1, (posicaoHeroi))
-    win.blit(tronco, (x,y))
-    #pygame.draw.rect(win, (255, 255, 255), (x, y, width, height))
-    #pygame.draw.circle(win, (255,255,255), posicaoHeroi, 20)
-    pygame.display.update()
- 
+        OPTIONS_BACK = Button(image=None, pos=(640, 460), 
+                            text_input="BACK", font=get_font(75), base_color="Black", hovering_color="Green")
+
+        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
+        OPTIONS_BACK.update(SCREEN)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                    main_menu()
+
+        pygame.display.update()
+
+def main_menu():
+    while True:
+        SCREEN.blit(BG, (0, 0))
+
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        MENU_TEXT = get_font(100).render("SOS Flood", True, "#FFCD50")
+        MENU_RECT = MENU_TEXT.get_rect(center=(590, 100))
+
+        PLAY_BUTTON = Button(image=pygame.image.load("assets/images/jogar.png"), pos=(590, 250), 
+                            text_input="Jogar", font=get_font(60), base_color="#d7fcd4", hovering_color="green")
+        OPTIONS_BUTTON = Button(image=pygame.image.load("assets/images/instrucoes.png"), pos=(590, 400), 
+                            text_input="Instruções", font=get_font(60), base_color="#d7fcd4", hovering_color="yellow")
+        QUIT_BUTTON = Button(image=pygame.image.load("assets/images/sair.png"), pos=(590, 550), 
+                            text_input="Sair", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
+
+        SCREEN.blit(MENU_TEXT, MENU_RECT)
+
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(SCREEN)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    play()
+                if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    options()
+                if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    pygame.quit()
+                    sys.exit()
+
+        pygame.display.update()
+
+main_menu()
