@@ -1,9 +1,9 @@
 #Matheus Fernandes - 42139694
 #teste 1
-
 import random
 import pygame
 from random import randint
+
 
 pygame.init()
 win_height = 720
@@ -93,6 +93,10 @@ while running:
         velY = 12
     if(temporizador >= 20):
         velY = 14
+    if(temporizador >= 25):
+        velY = 17
+    if(temporizador >= 35):
+        velY = 20
 
     #aumento de velocidade de acordo com o tempo
     if(temporizador >= 10):
@@ -101,6 +105,8 @@ while running:
         velocidadeHeroi = [8,8]
     if(temporizador >= 20):
         velocidadeHeroi = [10,10]
+    
+        
 
 
     #movimento do heroi
@@ -157,7 +163,7 @@ while running:
             posicaoObstaculo[0] = 615
             ladoObstaculo = "direita"
         life -= 1
-    if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_c]):
+    if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_SPACE]):
         if(ladoObstaculo == "esquerda"):
             posicaoVitima[0] = 655
         if(ladoObstaculo == "direita"):
@@ -174,6 +180,10 @@ while running:
         c3 = cVazio
     if(life == 1):
         c2 = cVazio
+    if(life == 0):
+        with open('scoreAtual.txt', 'w') as arquivo:
+            arquivo.write(str(score))
+        import gameover
 
 
     score = temporizador + bonus
