@@ -25,7 +25,7 @@ rakingTxt = fonte.render("Ranking", True, (255,255,255))
 
 def rankingMvp():
     cor = (255, 255, 255)
-    pos_y = 150
+    pos_y = 100
     for i, jogador in enumerate(jogadores[:20]):
         texto = f"{i+1}º {jogador['nome']} - Score: {jogador['score']} "
         superficie_texto = fonte_players.render(texto, True, cor)
@@ -42,6 +42,6 @@ while True:
 
     screen.blit(BG, (0,0))
     rankingMvp()
-    screen.blit(rakingTxt, (480, 50))
+    screen.blit(rakingTxt, (480, 40))
 
     pygame.display.update()

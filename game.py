@@ -19,6 +19,7 @@ cVida = pygame.image.load("assets/images/coracao.png")
 cVazio = pygame.image.load("assets/images/coracao_cinza.png")
 fonte = pygame.font.Font("assets/fonts/font.ttf", 30)
 rocha = pygame.image.load("assets/images/rocha_musgo.png")
+troncom = pygame.image.load("assets/images/tronco_musgo.png")
 bombeira = pygame.image.load("assets/images/bombeira.png")
 
 
@@ -134,12 +135,14 @@ while running:
 
     # posição em que o obstaculo restornara
     if(posicaoObstaculo[1] >= win_height):
-        num_obstaculo = randint(0,1)
+        num_obstaculo = randint(0,2)
 
         if(num_obstaculo == 0):
             obstaculo = tronco
         if(num_obstaculo == 1):
             obstaculo = rocha
+        if(num_obstaculo == 2):
+            obstaculo = troncom
 
         posicao = randint(0, 1)
         posicaoObstaculo[1] = -50
