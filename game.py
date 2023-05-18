@@ -12,7 +12,6 @@ win_mode = (win_width, win_height)
 win = pygame.display.set_mode(win_mode)
 pygame.display.set_caption("SOS Flood")
 bg = pygame.image.load("assets/images/background.png")
-vt1 = pygame.image.load("assets/images/heroi.png")
 tronco = pygame.image.load("assets/images/tronco 2.png")
 font = pygame.font.SysFont("assets/fonts/font.ttf", 50)
 cVida = pygame.image.load("assets/images/coracao.png")
@@ -21,7 +20,10 @@ fonte = pygame.font.Font("assets/fonts/font.ttf", 30)
 rocha = pygame.image.load("assets/images/rocha_musgo.png")
 troncom = pygame.image.load("assets/images/tronco_musgo.png")
 bombeira = pygame.image.load("assets/images/bombeira.png")
-
+lebron = pygame.image.load("assets/images/lebron.png")
+jhonny = pygame.image.load("assets/images/jhonny.png")
+kick = pygame.image.load("assets/images/kick.png")
+lara = pygame.image.load("assets/images/lara.png")
 
 # posição do obstaculo
 posicaoObstaculo = [385, -150]
@@ -70,6 +72,8 @@ ladoObstaculo = "esquerda"
 
 
 obstaculo = tronco
+vitima = jhonny
+
 
 running = True
 while running:
@@ -155,6 +159,19 @@ while running:
 
     #retornar a vitima ao inicio
     if(posicaoVitima[1] > win_height):
+        
+        num_vitima = randint(0,3)
+
+        if(num_vitima == 0):
+            vitima = jhonny
+        if(num_vitima == 1):
+            vitima = kick
+        if(num_vitima == 2):
+            vitima = lebron
+        if(num_vitima == 3):
+            vitima = lara
+        
+        
         bonus -= 30
         if(ladoObstaculo == "esquerda"):
             posicaoVitima[0] = 655
@@ -166,6 +183,15 @@ while running:
             posicaoVitima[1] = posicaoObstaculo[1] - 1000
 
     if((posicaoHeroi[0]+100 >= posicaoObstaculo[0] and posicaoHeroi[0] <= posicaoObstaculo[0] + 200) and (posicaoHeroi[1] <= posicaoObstaculo[1] + 30 and posicaoHeroi[1] + 100 >= posicaoObstaculo[1])):
+        num_obstaculo = randint(0,2)
+
+        if(num_obstaculo == 0):
+            obstaculo = tronco
+        if(num_obstaculo == 1):
+            obstaculo = rocha
+        if(num_obstaculo == 2):
+            obstaculo = troncom
+        
         posicao = randint(0, 1)
         posicaoObstaculo[1] = -50
         if(posicao == 0):
@@ -176,6 +202,17 @@ while running:
             ladoObstaculo = "direita"
         life -= 1
     if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_SPACE]):
+        num_vitima = randint(0,3)
+
+        if(num_vitima == 0):
+            vitima = jhonny
+        if(num_vitima == 1):
+            vitima = kick
+        if(num_vitima == 2):
+            vitima = lebron
+        if(num_vitima == 3):
+            vitima = lara
+        
         if(ladoObstaculo == "esquerda"):
             posicaoVitima[0] = 655
         if(ladoObstaculo == "direita"):
@@ -213,7 +250,7 @@ while running:
     win.blit(bg, (0, 0))
     win.blit(bombeira, (posicaoHeroi))
     win.blit(obstaculo, (posicaoObstaculo))
-    win.blit(vt1, (posicaoVitima))
+    win.blit(vitima, (posicaoVitima))
     win.blit(scoreTxt, (10, 620))
     win.blit(vitimasTxt, (10, 670))
     win.blit(c1,(900, 20))
