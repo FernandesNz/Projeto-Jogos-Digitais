@@ -20,10 +20,13 @@ fonte = pygame.font.Font("assets/fonts/font.ttf", 30)
 rocha = pygame.image.load("assets/images/rocha_musgo.png")
 troncom = pygame.image.load("assets/images/tronco_musgo.png")
 bombeira = pygame.image.load("assets/images/bombeira.png")
+bombeiro = pygame.image.load("assets/images/bombeiro.png")
 lebron = pygame.image.load("assets/images/lebron.png")
 jhonny = pygame.image.load("assets/images/jhonny.png")
 kick = pygame.image.load("assets/images/kick.png")
 lara = pygame.image.load("assets/images/lara.png")
+cosmo = pygame.image.load("assets/images/cosmo.png")
+ang = pygame.image.load("assets/images/ang.png")
 
 # posição do obstaculo
 posicaoObstaculo = [385, -150]
@@ -70,6 +73,12 @@ estadoVitima = "fora"
 ladoObstaculo = "esquerda"
 
 
+player = bombeira
+
+with open ('player.txt', 'r') as arquivo:
+    playerEscolhido = arquivo.read()
+
+
 
 obstaculo = tronco
 vitima = jhonny
@@ -85,6 +94,10 @@ while running:
         if event.type == CLOCKTICK:
                 temporizador = temporizador +1
 
+    if(playerEscolhido == '0'):
+        player = bombeira
+    if(playerEscolhido == '1'):
+        player = bombeiro
 
 
     posicaoObstaculo[1] += velY
@@ -160,7 +173,7 @@ while running:
     #retornar a vitima ao inicio
     if(posicaoVitima[1] > win_height):
         
-        num_vitima = randint(0,3)
+        num_vitima = randint(0,5)
 
         if(num_vitima == 0):
             vitima = jhonny
@@ -170,7 +183,10 @@ while running:
             vitima = lebron
         if(num_vitima == 3):
             vitima = lara
-        
+        if(num_vitima == 4):
+            vitima = cosmo
+        if(num_vitima == 5):
+            vitima = ang
         
         bonus -= 30
         if(ladoObstaculo == "esquerda"):
@@ -202,7 +218,7 @@ while running:
             ladoObstaculo = "direita"
         life -= 1
     if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_SPACE]):
-        num_vitima = randint(0,3)
+        num_vitima = randint(0,5)
 
         if(num_vitima == 0):
             vitima = jhonny
@@ -212,6 +228,10 @@ while running:
             vitima = lebron
         if(num_vitima == 3):
             vitima = lara
+        if(num_vitima == 4):
+            vitima = cosmo
+        if(num_vitima == 5):
+            vitima = ang
         
         if(ladoObstaculo == "esquerda"):
             posicaoVitima[0] = 655
@@ -248,7 +268,7 @@ while running:
 
     win.fill((0,0,0))
     win.blit(bg, (0, 0))
-    win.blit(bombeira, (posicaoHeroi))
+    win.blit(player, (posicaoHeroi))
     win.blit(obstaculo, (posicaoObstaculo))
     win.blit(vitima, (posicaoVitima))
     win.blit(scoreTxt, (10, 620))
