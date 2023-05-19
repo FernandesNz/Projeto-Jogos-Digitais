@@ -27,6 +27,11 @@ kick = pygame.image.load("assets/images/kick.png")
 lara = pygame.image.load("assets/images/lara.png")
 cosmo = pygame.image.load("assets/images/cosmo.png")
 ang = pygame.image.load("assets/images/ang.png")
+cap = pygame.image.load("assets/images/cap.png")
+ciborg = pygame.image.load("assets/images/ciborg.png")
+padrao = pygame.image.load("assets/images/padrão.png")
+goku = pygame.image.load("assets/images/goku.png")
+
 
 # posição do obstaculo
 posicaoObstaculo = [385, -150]
@@ -81,8 +86,7 @@ with open ('player.txt', 'r') as arquivo:
 
 
 obstaculo = tronco
-vitima = jhonny
-
+vitima = padrao
 
 running = True
 while running:
@@ -173,7 +177,7 @@ while running:
     #retornar a vitima ao inicio
     if(posicaoVitima[1] > win_height):
         
-        num_vitima = randint(0,5)
+        num_vitima = randint(0,9)
 
         if(num_vitima == 0):
             vitima = jhonny
@@ -187,6 +191,14 @@ while running:
             vitima = cosmo
         if(num_vitima == 5):
             vitima = ang
+        if(num_vitima == 6):
+            vitima = cap
+        if(num_vitima == 7):
+            vitima = ciborg
+        if(num_vitima == 8):
+            vitima = padrao
+        if(num_vitima == 9):
+            vitima = goku
         
         bonus -= 30
         if(ladoObstaculo == "esquerda"):
@@ -218,7 +230,7 @@ while running:
             ladoObstaculo = "direita"
         life -= 1
     if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_SPACE]):
-        num_vitima = randint(0,5)
+        num_vitima = randint(0,9)
 
         if(num_vitima == 0):
             vitima = jhonny
@@ -232,6 +244,14 @@ while running:
             vitima = cosmo
         if(num_vitima == 5):
             vitima = ang
+        if(num_vitima == 6):
+            vitima = cap
+        if(num_vitima == 7):
+            vitima = ciborg
+        if(num_vitima == 8):
+            vitima = padrao
+        if(num_vitima == 9):
+            vitima = goku
         
         if(ladoObstaculo == "esquerda"):
             posicaoVitima[0] = 655

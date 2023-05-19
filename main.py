@@ -8,6 +8,7 @@ SCREEN = pygame.display.set_mode((1180, 720))
 pygame.display.set_caption("Menu")
 
 BG = pygame.image.load("assets/images/Background3.png")
+rank = pygame.image.load("assets/images/ranking.png")
 
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/fonts/font.ttf", size)
@@ -79,10 +80,12 @@ def main_menu():
                             text_input="Instruções", font=get_font(60), base_color="#d7fcd4", hovering_color="yellow")
         QUIT_BUTTON = Button(image=pygame.image.load("assets/images/sair.png"), pos=(590, 550), 
                             text_input="Sair", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
+        RANKING_BUTTON = Button(rank, pos=(1100, 650), 
+                            text_input="", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON]:
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON, RANKING_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
         
@@ -93,6 +96,8 @@ def main_menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if PLAY_BUTTON.checkForInput(MENU_MOUSE_POS):
                     import choose_player
+                if RANKING_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    import ranking
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
