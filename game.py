@@ -31,6 +31,11 @@ cap = pygame.image.load("assets/images/cap.png")
 ciborg = pygame.image.load("assets/images/ciborg.png")
 padrao = pygame.image.load("assets/images/padrão.png")
 goku = pygame.image.load("assets/images/goku.png")
+wanda = pygame.image.load("assets/images/wanda.png")
+groot = pygame.image.load("assets/images/groot.png")
+cartman = pygame.image.load("assets/images/cartman.png")
+kenny = pygame.image.load("assets/images/kenny.png")
+
 
 
 # posição do obstaculo
@@ -122,7 +127,7 @@ while running:
     if(temporizador >= 35):
         velY = 20
 
-    #aumento de velocidade de acordo com o tempo
+    #aumento de velocidade do heroi de acordo com o tempo
     if(temporizador >= 10):
         velocidadeHeroi = [6,6]
     if(temporizador >= 15):
@@ -177,7 +182,7 @@ while running:
     #retornar a vitima ao inicio
     if(posicaoVitima[1] > win_height):
         
-        num_vitima = randint(0,9)
+        num_vitima = randint(0,13)
 
         if(num_vitima == 0):
             vitima = jhonny
@@ -199,6 +204,14 @@ while running:
             vitima = padrao
         if(num_vitima == 9):
             vitima = goku
+        if(num_vitima == 10):
+            vitima = wanda
+        if(num_vitima == 11):
+            vitima = groot
+        if(num_vitima == 12):
+            vitima = cartman
+        if(num_vitima == 13):
+            vitima = kenny
         
         bonus -= 30
         if(ladoObstaculo == "esquerda"):
@@ -230,7 +243,7 @@ while running:
             ladoObstaculo = "direita"
         life -= 1
     if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_SPACE]):
-        num_vitima = randint(0,9)
+        num_vitima = randint(0,13)
 
         if(num_vitima == 0):
             vitima = jhonny
@@ -252,6 +265,14 @@ while running:
             vitima = padrao
         if(num_vitima == 9):
             vitima = goku
+        if(num_vitima == 10):
+            vitima = wanda
+        if(num_vitima == 11):
+            vitima = groot
+        if(num_vitima == 12):
+            vitima = cartman
+        if(num_vitima == 13):
+            vitima = kenny
         
         if(ladoObstaculo == "esquerda"):
             posicaoVitima[0] = 655
