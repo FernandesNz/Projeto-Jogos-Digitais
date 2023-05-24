@@ -134,6 +134,10 @@ while running:
         velocidadeHeroi = [8,8]
     if(temporizador >= 20):
         velocidadeHeroi = [10,10]
+    if(temporizador >= 35):
+        velocidadeHeroi = [12,12]
+    if(temporizador >= 55):
+        velocidadeHeroi = [15,15]
     
         
 
