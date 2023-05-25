@@ -22,9 +22,10 @@ story2 = fonte.render("desastre, ela fica numa região ", True, (255,255,255))
 story3 = fonte.render("litorânea e foi atingida por uma ", True, (255,255,255))
 story4 = fonte.render("tempestade que ocasionou em uma ", True, (255,255,255))
 story5 = fonte.render("grande enchente. Agora cabe a você ", True, (255,255,255)) 
-story6 = fonte.render("ajudar as vitimas que estão em ", True, (255,255,255))
-story7 = fonte.render("apuros nessa terrível enchente.", True, (255,255,255))
-story8 = fonte.render("Vamos nessa?", True, (255,255,255))
+story6 = fonte.render("guiar George ou Cloe para salvar as ", True, (255,255,255))
+story7 = fonte.render("vitimas que estão em apuros nessa", True, (255,255,255))
+story8 = fonte.render(" terrível enchente.", True, (255,255,255))
+story9 = fonte.render("Vamos nessa?", True, (255,255,255))
 
 while True:
     for event in pygame.event.get():
@@ -44,11 +45,13 @@ while True:
     screen.blit(story3,(190,180))
     screen.blit(story4,(200, 240))
     screen.blit(story5,(180,300))
-    screen.blit(story6,(210, 360))
-    screen.blit(story7,(210, 420))
-    screen.blit(story8,(460, 480))
+    screen.blit(story6,(165, 360))
+    screen.blit(story7,(190, 420))
+    screen.blit(story8,(370, 470))
+    screen.blit(story9,(460, 540))
 
-    OPTIONS_BACK = Button(image=None, pos=(600, 580), 
+
+    OPTIONS_BACK = Button(image=None, pos=(600, 630), 
                             text_input="INICIAR", font=fonteComecar, base_color="BLACK", hovering_color="Green")
 
     OPTIONS_BACK.changeColor(STORY_MOUSE_POS)

@@ -27,11 +27,11 @@ def escolher():
 
     RANK_MOUSE_POS = pygame.mouse.get_pos()
 
-    BOMBEIRA_BUTTON = Button(teste, pos=(400, 500), 
-        text_input="BOMBEIRA", font=get_font(30), base_color="#d7fcd4", hovering_color="green")
+    BOMBEIRA_BUTTON = Button(image=None, pos=(400, 500), 
+        text_input="CLOE", font=get_font(30), base_color="#d7fcd4", hovering_color="green")
     
-    BOMBEIRO_BUTTON = Button(teste, pos=(800, 500), 
-        text_input="BOMBEIRO", font=get_font(30), base_color="#d7fcd4", hovering_color="green")
+    BOMBEIRO_BUTTON = Button(image=None, pos=(800, 500), 
+        text_input="GEORGE", font=get_font(30), base_color="#d7fcd4", hovering_color="green")
 
     for button in [BOMBEIRA_BUTTON,BOMBEIRO_BUTTON]:
         button.changeColor(RANK_MOUSE_POS)
