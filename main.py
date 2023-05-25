@@ -13,6 +13,8 @@ BG = pygame.image.load("assets/images/Background3.png")
 rank = pygame.image.load("assets/images/ranking.png")
 direcionais = pygame.image.load("assets/images/direcionais.png")
 space = pygame.image.load("assets/images/space.png")
+mudo = pygame.image.load("assets/images/mudo.png")
+volume = pygame.image.load("assets/images/volume.png")
 fonte = pygame.font.Font("assets/fonts/font.ttf", 17)
 
 def get_font(size): # Returns Press-Start-2P in the desired size
@@ -29,11 +31,20 @@ instrucoesTxt4 = fonte.render("você deve usar as setas do teclado para o lado "
 instrucoesTxt5 = fonte.render("direito e esquerdo e para salvar as vítimas basta", True, (255, 255, 255))
 instrucoesTxt6 = fonte.render("pressionar a tecla espaço", True, (255, 255, 255))
 
+
+
+
 with open('players.json') as f:
             jogadores = json.load(f)
         # Ordenação dos jogadores pela pontuação
 
 jogadores.sort(key=lambda x: x['score'], reverse=True)
+
+
+som = volume
+nsom = 0
+
+
 
 def play():
     while True:
@@ -142,6 +153,9 @@ def ranking():
         pygame.display.update()
 def main_menu():
     while True:
+
+        
+
         SCREEN.blit(BG, (0, 0))
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
@@ -157,10 +171,12 @@ def main_menu():
                             text_input="Sair", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
         RANKING_BUTTON = Button(rank, pos=(1100, 650), 
                             text_input="", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
+        SONG_BUTTON = Button(som, pos=(100, 650), 
+                            text_input="", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON, RANKING_BUTTON]:
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON, RANKING_BUTTON,SONG_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
         
@@ -173,11 +189,15 @@ def main_menu():
                     import story
                 if RANKING_BUTTON.checkForInput(MENU_MOUSE_POS):
                     ranking()
+                if SONG_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    None
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
                     pygame.quit()
                     sys.exit()
+        
+
         pygame.display.update()
 
 main_menu()

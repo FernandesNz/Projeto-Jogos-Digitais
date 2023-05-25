@@ -186,7 +186,7 @@ while running:
     #retornar a vitima ao inicio
     if(posicaoVitima[1] > win_height):
         
-        num_vitima = randint(0,13)
+        num_vitima = randint(0,12)
 
         if(num_vitima == 0):
             vitima = jhonny
@@ -211,12 +211,10 @@ while running:
         if(num_vitima == 10):
             vitima = wanda
         if(num_vitima == 11):
-            vitima = groot
-        if(num_vitima == 12):
             vitima = cartman
-        if(num_vitima == 13):
+        if(num_vitima == 12):
             vitima = kenny
-        
+        pygame.mixer.music.load('assets/songs/erro.mp3')
         bonus -= 30
         if(ladoObstaculo == "esquerda"):
             posicaoVitima[0] = 655
@@ -245,9 +243,10 @@ while running:
         if(posicao == 1):
             posicaoObstaculo[0] = 615
             ladoObstaculo = "direita"
+        pygame.mixer.music.load('assets/songs/cococaindo.mp3')
         life -= 1
     if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_SPACE]):
-        num_vitima = randint(0,13)
+        num_vitima = randint(0,12)
 
         if(num_vitima == 0):
             vitima = jhonny
@@ -272,10 +271,8 @@ while running:
         if(num_vitima == 10):
             vitima = wanda
         if(num_vitima == 11):
-            vitima = groot
-        if(num_vitima == 12):
             vitima = cartman
-        if(num_vitima == 13):
+        if(num_vitima == 12):
             vitima = kenny
         
         if(ladoObstaculo == "esquerda"):
@@ -286,6 +283,7 @@ while running:
             posicaoVitima[1] = posicaoObstaculo[1] - 1500
         if(posicaoObstaculo[1] < 400):
             posicaoVitima[1] = posicaoObstaculo[1] - 1000
+        pygame.mixer.music.load('assets/songs/save.mp3')
         vitimasSalvas += 1
         bonus += 10
 
