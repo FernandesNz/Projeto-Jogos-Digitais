@@ -36,13 +36,12 @@ instrucoesTxt6 = fonte.render("pressionar a tecla espaço", True, (255, 255, 255
 
 with open('players.json') as f:
             jogadores = json.load(f)
-        # Ordenação dos jogadores pela pontuação
 
 jogadores.sort(key=lambda x: x['score'], reverse=True)
 
 
-som = volume
-nsom = 0
+
+
 
 
 
@@ -121,14 +120,39 @@ def ranking():
         rakingTxt = fonteRankingTitle.render("Ranking", True, (255,255,255))
 
         def rankingMvp():
-
+            
             cor = (255, 255, 255)
+            cor1 = (255, 255, 0)
+            cor2 = (192, 192, 192)
+            cor3 = (205, 127, 50)
+            cor10 = (0, 255, 255)
             pos_y = 100
             for i, jogador in enumerate(jogadores[:20]):
-                texto = f"{i+1}º {jogador['nome']} - Score: {jogador['score']}"
-                superficie_texto = fonte_players.render(texto, True, cor)
-                SCREEN.blit(superficie_texto, (300, pos_y))
-                pos_y += 30
+                if(i == 0):
+                    texto = f"{i+1}º {jogador['nome']} - Score: {jogador['score']}"
+                    superficie_texto = fonte_players.render(texto, True, cor1)
+                    SCREEN.blit(superficie_texto, (300, pos_y))
+                    pos_y += 30
+                elif(i == 1):
+                    texto = f"{i+1}º {jogador['nome']} - Score: {jogador['score']}"
+                    superficie_texto = fonte_players.render(texto, True, cor2)
+                    SCREEN.blit(superficie_texto, (300, pos_y))
+                    pos_y += 30
+                elif(i == 2):
+                    texto = f"{i+1}º {jogador['nome']} - Score: {jogador['score']}"
+                    superficie_texto = fonte_players.render(texto, True, cor3)
+                    SCREEN.blit(superficie_texto, (300, pos_y))
+                    pos_y += 30
+                elif(i > 2 and i < 10):
+                    texto = f"{i+1}º {jogador['nome']} - Score: {jogador['score']}"
+                    superficie_texto = fonte_players.render(texto, True, cor10)
+                    SCREEN.blit(superficie_texto, (300, pos_y))
+                    pos_y += 30
+                else:
+                    texto = f"{i+1}º {jogador['nome']} - Score: {jogador['score']}"
+                    superficie_texto = fonte_players.render(texto, True, cor)
+                    SCREEN.blit(superficie_texto, (300, pos_y))
+                    pos_y += 30
 
 
         SCREEN.fill("white")
@@ -154,11 +178,36 @@ def ranking():
 def main_menu():
     while True:
 
-        
+        som = mudo
+        posSom = (20,600)
+        nSom = 1
 
-        SCREEN.blit(BG, (0, 0))
+        def ligaSom():
+            som = volume
+            nSom = 1
+        def desligaSom():
+            som = mudo
+            nSom = 0
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        if((posSom[0]+100 >= MENU_MOUSE_POS[0] and posSom[0] <= MENU_MOUSE_POS[0]) and (posSom[1] <= MENU_MOUSE_POS[1] and posSom[1] + 100 >= MENU_MOUSE_POS[1]) and event.type == MOUSEBUTTONDOWN):
+            pygame.time.delay(1000)
+            if(nSom == 0):
+                desligaSom()
+            if(nSom == 1):
+                ligaSom()
+            print(nSom)
+            #print(som)
+
+        
+
+
+
+        SCREEN.blit(BG, (0, 0))
+        SCREEN.blit(som,posSom)
+
+        
 
         MENU_TEXT = get_font(100).render("SOS Flood", True, "#FFCD50")
         MENU_RECT = MENU_TEXT.get_rect(center=(590, 100))
@@ -171,12 +220,12 @@ def main_menu():
                             text_input="Sair", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
         RANKING_BUTTON = Button(rank, pos=(1100, 650), 
                             text_input="", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
-        SONG_BUTTON = Button(som, pos=(100, 650), 
-                            text_input="", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
+        #SONG_BUTTON = Button(som, pos=(100, 650), 
+        #                    text_input="", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
-        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON, RANKING_BUTTON,SONG_BUTTON]:
+        for button in [PLAY_BUTTON, OPTIONS_BUTTON, QUIT_BUTTON, RANKING_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(SCREEN)
         
@@ -189,8 +238,8 @@ def main_menu():
                     import story
                 if RANKING_BUTTON.checkForInput(MENU_MOUSE_POS):
                     ranking()
-                if SONG_BUTTON.checkForInput(MENU_MOUSE_POS):
-                    None
+                #if SONG_BUTTON.checkForInput(MENU_MOUSE_POS):
+                #    None
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):
