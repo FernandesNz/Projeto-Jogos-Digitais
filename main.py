@@ -190,13 +190,17 @@ def main_menu():
         if((posSom[0]+100 >= MENU_MOUSE_POS[0] and posSom[0] <= MENU_MOUSE_POS[0]) and (posSom[1] <= MENU_MOUSE_POS[1] and posSom[1] + 100 >= MENU_MOUSE_POS[1]) and event.type == MOUSEBUTTONDOWN):
             pygame.time.delay(700)
             if(nSom == 0):
-              som = mudo
-              nSom = 1
-              pygame.mixer.music.stop()
+                som = mudo
+                nSom = 1
+                pygame.mixer.music.stop()
+                with open('music.txt', 'w') as arquivo:
+                        arquivo.write('1')
             elif(nSom == 1):
                 som = volume
                 nSom = 0
                 pygame.mixer.music.play()
+                with open('music.txt', 'w') as arquivo:
+                        arquivo.write('0')
         
 
 
@@ -216,8 +220,6 @@ def main_menu():
                             text_input="Sair", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
         RANKING_BUTTON = Button(rank, pos=(1100, 650), 
                             text_input="", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
-        #SONG_BUTTON = Button(som, pos=(100, 650), 
-        #                    text_input="", font=get_font(60), base_color="#d7fcd4", hovering_color="red")
 
         SCREEN.blit(MENU_TEXT, MENU_RECT)
 
@@ -234,8 +236,6 @@ def main_menu():
                     import story
                 if RANKING_BUTTON.checkForInput(MENU_MOUSE_POS):
                     ranking()
-                #if SONG_BUTTON.checkForInput(MENU_MOUSE_POS):
-                #    None
                 if OPTIONS_BUTTON.checkForInput(MENU_MOUSE_POS):
                     options()
                 if QUIT_BUTTON.checkForInput(MENU_MOUSE_POS):

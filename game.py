@@ -88,8 +88,12 @@ player = bombeira
 with open ('player.txt', 'r') as arquivo:
     playerEscolhido = arquivo.read()
 
-pygame.mixer.music.load("assets/songs/musicatema.mp3")
-pygame.mixer.music.play()
+with open ('music.txt', 'r') as arquivo:
+    music = arquivo.read()
+
+if(music == 0):
+    pygame.mixer.music.load("assets/songs/musicatema.mp3")
+    pygame.mixer.music.play()
 
 #Sounds
 erro = pygame.mixer.Sound("assets/songs/erro.mp3")
@@ -220,8 +224,10 @@ while running:
             vitima = cartman
         if(num_vitima == 12):
             vitima = kenny
-        
-        erro.play()
+
+
+        if(music == 0):
+            erro.play()
 
         bonus -= 30
         if(ladoObstaculo == "esquerda"):
@@ -252,7 +258,8 @@ while running:
             posicaoObstaculo[0] = 615
             ladoObstaculo = "direita"
         
-        colisao.play()
+        if(music == 0):
+            colisao.play()
 
         life -= 1
     if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_SPACE]):
@@ -294,7 +301,8 @@ while running:
         if(posicaoObstaculo[1] < 400):
             posicaoVitima[1] = posicaoObstaculo[1] - 1000
         
-        save.play()
+        if(music == 0):
+            save.play()
 
         vitimasSalvas += 1
         bonus += 10
