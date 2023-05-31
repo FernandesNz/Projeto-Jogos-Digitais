@@ -88,13 +88,13 @@ player = bombeira
 with open ('player.txt', 'r') as arquivo:
     playerEscolhido = arquivo.read()
 
-#pygame.mixer.music.load("assets/songs/musicatema.mp3")
-#pygame.mixer.music.play()
+pygame.mixer.music.load("assets/songs/musicatema.mp3")
+pygame.mixer.music.play()
 
 #Sounds
-#erro = pygame.mixer.Sound("assets/songs/erro.mp3")
-#colisao = pygame.mixer.Sound("assets/songs/cococaindo.mp3")
-#save = pygame.mixer.Sound("assets/songs/save.mp3")
+erro = pygame.mixer.Sound("assets/songs/erro.mp3")
+colisao = pygame.mixer.Sound("assets/songs/cococaindo.mp3")
+save = pygame.mixer.Sound("assets/songs/save.mp3")
 
 obstaculo = tronco
 vitima = padrao
@@ -221,7 +221,7 @@ while running:
         if(num_vitima == 12):
             vitima = kenny
         
-        #erro.play()
+        erro.play()
 
         bonus -= 30
         if(ladoObstaculo == "esquerda"):
@@ -252,7 +252,7 @@ while running:
             posicaoObstaculo[0] = 615
             ladoObstaculo = "direita"
         
-        #colisao.play()
+        colisao.play()
 
         life -= 1
     if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_SPACE]):
@@ -294,7 +294,7 @@ while running:
         if(posicaoObstaculo[1] < 400):
             posicaoVitima[1] = posicaoObstaculo[1] - 1000
         
-        #save.play()
+        save.play()
 
         vitimasSalvas += 1
         bonus += 10

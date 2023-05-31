@@ -17,6 +17,7 @@ mudo = pygame.image.load("assets/images/mudo.png")
 volume = pygame.image.load("assets/images/volume.png")
 fonte = pygame.font.Font("assets/fonts/font.ttf", 17)
 
+
 def get_font(size): # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/fonts/font.ttf", size)
 
@@ -175,33 +176,28 @@ def ranking():
                 if OPTIONS_BACK.checkForInput(RANK_MOUSE_POS):
                     main_menu()
         pygame.display.update()
+
+
+        
 def main_menu():
+    som = volume
+    posSom = (20,600)
+    nSom = 0
     while True:
-
-        som = mudo
-        posSom = (20,600)
-        nSom = 1
-
-        def ligaSom():
-            som = volume
-            nSom = 1
-        def desligaSom():
-            som = mudo
-            nSom = 0
-
+        
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
         if((posSom[0]+100 >= MENU_MOUSE_POS[0] and posSom[0] <= MENU_MOUSE_POS[0]) and (posSom[1] <= MENU_MOUSE_POS[1] and posSom[1] + 100 >= MENU_MOUSE_POS[1]) and event.type == MOUSEBUTTONDOWN):
-            pygame.time.delay(1000)
+            pygame.time.delay(700)
             if(nSom == 0):
-                desligaSom()
-            if(nSom == 1):
-                ligaSom()
-            print(nSom)
-            #print(som)
-
+              som = mudo
+              nSom = 1
+              pygame.mixer.music.stop()
+            elif(nSom == 1):
+                som = volume
+                nSom = 0
+                pygame.mixer.music.play()
         
-
 
 
         SCREEN.blit(BG, (0, 0))
@@ -248,5 +244,7 @@ def main_menu():
         
 
         pygame.display.update()
-
+     
+pygame.mixer.music.load("assets/songs/musicatema.mp3")
+pygame.mixer.music.play()
 main_menu()
