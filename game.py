@@ -225,9 +225,7 @@ while running:
         if(num_vitima == 12):
             vitima = kenny
 
-
-        if(music == 0):
-            erro.play()
+        erro.play()
 
         bonus -= 30
         if(ladoObstaculo == "esquerda"):
@@ -258,8 +256,7 @@ while running:
             posicaoObstaculo[0] = 615
             ladoObstaculo = "direita"
         
-        if(music == 0):
-            colisao.play()
+        colisao.play()
 
         life -= 1
     if((posicaoHeroi[0]+100 >= posicaoVitima[0] and posicaoHeroi[0] <= posicaoVitima[0] + 100) and (posicaoHeroi[1] <= posicaoVitima[1] + 100 and posicaoHeroi[1] + 100 >= posicaoVitima[1]) and pressed[pygame.K_SPACE]):
@@ -301,8 +298,7 @@ while running:
         if(posicaoObstaculo[1] < 400):
             posicaoVitima[1] = posicaoObstaculo[1] - 1000
         
-        if(music == 0):
-            save.play()
+        save.play()
 
         vitimasSalvas += 1
         bonus += 10
