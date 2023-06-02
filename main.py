@@ -1,3 +1,5 @@
+#Matheus Fernandes Rodrigues 42139694
+#Victória Alves dos Santos 32198973
 import json
 import pygame, sys
 from pygame.locals import *
